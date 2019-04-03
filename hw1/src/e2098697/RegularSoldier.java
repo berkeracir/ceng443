@@ -37,14 +37,15 @@ public class RegularSoldier extends Soldier {
 
         if (controller.isValidPosition(newPosition)) {
             this.setPosition(newPosition);
-            double distance = this.calculateClosestZombieDistance(controller);
-
-            if (distance <= this.getShootingRange()) {
-                this.setState(SoldierState.AIMING);
-            }
         }
         else {
             this.setDirection(Position.generateRandomDirection(true));
+        }
+
+        double distance = this.calculateClosestZombieDistance(controller);
+
+        if (distance <= this.getShootingRange()) {
+            this.setState(SoldierState.AIMING);
         }
     }
 
@@ -53,9 +54,10 @@ public class RegularSoldier extends Soldier {
      */
     private void aimingStep(SimulationController controller) {
         double distance = this.calculateClosestZombieDistance(controller);
+        Zombie zombie = this.getClosestZombie(controller);
 
-        if (distance <= this.getShootingRange()) {
-            Position newDirection = this.calculateDirection(this.getClosestZombie(controller).getPosition());
+        if (null != zombie && distance <= this.getShootingRange()) {
+            Position newDirection = this.calculateDirection(zombie.getPosition());
             this.setDirection(newDirection);
             this.setState(SoldierState.SHOOTING);
         }
@@ -77,6 +79,7 @@ public class RegularSoldier extends Soldier {
             this.setState(SoldierState.AIMING);
         }
         else {
+            this.setDirection(Position.generateRandomDirection(true));
             this.setState(SoldierState.SEARCHING);
         }
     }

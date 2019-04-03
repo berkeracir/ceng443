@@ -14,7 +14,6 @@ public abstract class Soldier extends SimulationObject {
 
     public Soldier(String name, Position position, SoldierType type) {
         super(name, position, SoldierType.getSpeed(type));
-        //this.setDirection(Position.generateRandomDirection(true));
         this.type = type;
         this.collisionRange = SoldierType.getCollisionRange(type);
         this.shootingRange = SoldierType.getShootingRange(type);

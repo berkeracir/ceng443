@@ -81,7 +81,7 @@ public abstract class SimulationObject {
         double distance = Integer.MAX_VALUE;
 
         for (SimulationObject obj : controller.getSimulationObjects()) {
-            if (obj instanceof Zombie) {
+            if (obj instanceof Zombie && obj.isActive()) {
                 Zombie zombie = (Zombie) obj;
                 double d = this.getPosition().distance(zombie.getPosition());
 
@@ -100,7 +100,7 @@ public abstract class SimulationObject {
         Zombie zombie = null;
 
         for (SimulationObject obj : controller.getSimulationObjects()) {
-            if (obj instanceof Zombie) {
+            if (obj instanceof Zombie && obj.isActive()) {
                 Zombie z = (Zombie) obj;
                 double d = this.getPosition().distance(z.getPosition());
 
@@ -121,7 +121,7 @@ public abstract class SimulationObject {
         double distance = Integer.MAX_VALUE;
 
         for (SimulationObject obj : controller.getSimulationObjects()) {
-            if (obj instanceof Soldier) {
+            if (obj instanceof Soldier && obj.isActive()) {
                 Soldier soldier = (Soldier) obj;
                 double d = this.getPosition().distance(soldier.getPosition());
 
@@ -140,7 +140,7 @@ public abstract class SimulationObject {
         Soldier soldier = null;
 
         for (SimulationObject obj : controller.getSimulationObjects()) {
-            if (obj instanceof Soldier) {
+            if (obj instanceof Soldier && obj.isActive()) {
                 Soldier s = (Soldier) obj;
                 double d = this.getPosition().distance(s.getPosition());
 

@@ -48,7 +48,13 @@ public class SimulationController {
         this.tmpAddObjects.removeAll(tmpAddObjects);
 
         for (SimulationObject obj : this.simulationObjects) {
-            obj.step(this);
+            if (this.isFinished()) {
+                return;
+            }
+
+            if (obj.isActive()) {
+                obj.step(this);
+            }
         }
 
         for (SimulationObject obj : this.simulationObjects) {
@@ -59,27 +65,10 @@ public class SimulationController {
 
         this.simulationObjects.removeAll(this.tmpDelObjects);
         this.tmpDelObjects.removeAll(this.tmpDelObjects);
-        /*this.objectCount = simulationObjects.size();
-        int i = 0;
-
-        for (Iterator<SimulationObject> iter = simulationObjects.iterator(); iter.hasNext() && i < objectCount; i++) {
-            SimulationObject obj = iter.next();
-            // TODO: check whether SimulationObject is active or not.
-            obj.step(this);
-        }
-
-        for (Iterator<SimulationObject> iter = simulationObjects.iterator(); iter.hasNext();) {
-            SimulationObject obj = iter.next();
-            if (!obj.isActive()) {
-                iter.remove();
-                this.removeSimulationObject(obj);
-            }
-        }*/
     }
 
     public void addSimulationObject(SimulationObject obj) {
         this.tmpAddObjects.add(obj);
-        //this.simulationObjects.add(obj);
 
         if (obj instanceof Zombie) {
             zombieCount++;
@@ -91,7 +80,6 @@ public class SimulationController {
     
     public void removeSimulationObject(SimulationObject obj) {
         this.tmpDelObjects.add(obj);
-        //this.simulationObjects.remove(obj);
 
         if (obj instanceof Zombie) {
             zombieCount--;
@@ -120,6 +108,5 @@ public class SimulationController {
         }
 
         return false;
-
     }
 }

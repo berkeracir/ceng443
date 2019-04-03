@@ -12,12 +12,13 @@ public class RegularZombie extends Zombie {
     }
 
     /**
-     *  RegularSoldier step method
+     *  RegularZombie step method
      */
     public void step(SimulationController controller) {
         if (null == this.getDirection()) {
             this.setDirection(Position.generateRandomDirection(true));
         }
+
         if (!this.killSoldier(controller)) {
             if (ZombieState.WANDERING == this.getState()) {
                 this.wanderingStep(controller);
@@ -35,14 +36,15 @@ public class RegularZombie extends Zombie {
 
         if (controller.isValidPosition(newPosition)) {
             this.setPosition(newPosition);
-            double distance = this.calculateClosestSoldierDistance(controller);
-
-            if (distance <= this.getDetectionRange()) {
-                this.setState(ZombieState.FOLLOWING);
-            }
         }
         else {
             this.setDirection(Position.generateRandomDirection(true));
+        }
+
+        double distance = this.calculateClosestSoldierDistance(controller);
+
+        if (distance <= this.getDetectionRange()) {
+            this.setState(ZombieState.FOLLOWING);
         }
     }
 

@@ -12,7 +12,6 @@ public abstract class Zombie extends SimulationObject {
 
     public Zombie(String name, Position position, ZombieType type) {
         super(name, position, ZombieType.getSpeed(type));
-        //this.setDirection(Position.generateRandomDirection(true));
         this.type = type;
         this.collisionRange = ZombieType.getCollisionRange(type);
         this.detectionRange = ZombieType.getDetectionRange(type);
@@ -59,7 +58,7 @@ public abstract class Zombie extends SimulationObject {
         double distance = this.calculateClosestSoldierDistance(controller);
         Soldier soldier = this.getClosestSoldier(controller);
 
-        if (distance <= this.getCollisionRange() + soldier.getCollisionRange()) {
+        if (null != soldier && distance <= this.getCollisionRange() + soldier.getCollisionRange()) {
             soldier.setActive(false);
             System.out.println(this.getName() + " killed " + soldier.getName() + ".");
             return true;
