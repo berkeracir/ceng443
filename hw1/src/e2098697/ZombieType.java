@@ -9,6 +9,9 @@ public enum ZombieType {
     REGULAR,
     FAST;
 
+    /**
+     * Returns speed of a zombie with a given zombie type
+     */
     public static double getSpeed(ZombieType type) {
         if (SLOW == type) {
             return 2.0;
@@ -23,6 +26,9 @@ public enum ZombieType {
         return 0;
     }
 
+    /**
+     * Returns collision range of a zombie with a given zombie type
+     */
     public static double getCollisionRange(ZombieType type) {
         if (SLOW == type) {
             return 1.0;
@@ -37,6 +43,9 @@ public enum ZombieType {
         return 0;
     }
 
+    /**
+     * Returns detection range of a zombie with a given zombie type
+     */
     public static double getDetectionRange(ZombieType type) {
         if (SLOW == type) {
             return 40.0;

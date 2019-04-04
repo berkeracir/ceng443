@@ -9,6 +9,9 @@ public enum SoldierType {
     COMMANDO,
     SNIPER;
 
+    /**
+     * Returns speed of a soldier with a given soldier type
+     */
     public static double getSpeed(SoldierType type) {
         if (REGULAR == type) {
             return 5.0;
@@ -23,6 +26,9 @@ public enum SoldierType {
         return 0;
     }
 
+    /**
+     * Returns collison range of a soldier with a given soldier type
+     */
     public static double getCollisionRange(SoldierType type) {
         if (REGULAR == type) {
             return 2.0;
@@ -37,6 +43,9 @@ public enum SoldierType {
         return 0;
     }
 
+    /**
+     * Returns shooting range of a soldier with a given soldier type
+     */
     public static double getShootingRange(SoldierType type) {
         if (REGULAR == type) {
             return 20.0;

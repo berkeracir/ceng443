@@ -1,10 +1,9 @@
 package e2098697;
 
-import javafx.geometry.Pos;
 
 /**
- *
- *
+ *  Abstract Soldier class for different Soldier Types such as
+ *  RegularSoldier, Commando, Sniper
  */
 public abstract class Soldier extends SimulationObject {
     private final SoldierType type;
@@ -41,12 +40,18 @@ public abstract class Soldier extends SimulationObject {
         System.out.println(this.getName() + " changed state to " + state + ".");
     }
 
+    /**
+     * Overrided setPosition function for extra printing feature
+     */
     @Override
     public void setPosition(Position position) {
         super.setPosition(position);
         System.out.println(this.getName() + " moved to " + position + ".");
     }
 
+    /**
+     * Overrided setDirection function for extra printing feature
+     */
     @Override
     public void setDirection(Position position) {
         super.setDirection(position);

@@ -1,5 +1,8 @@
 package e2098697;
 
+/**
+ *  Bullet class, extended from SimulationObject class, it represents Bullets fired from soldiers
+ */
 public class Bullet extends SimulationObject {
     private static int id = 0;
 
@@ -10,7 +13,17 @@ public class Bullet extends SimulationObject {
     }
 
     /**
-     *  Bullet step method
+     * Bullet step method, it simulates bullets behaviour in the given SimulationController:
+     *
+     * • Divide the speed into 1.0 to calculate the N small steps.
+     * • For every small steps between [0, N):
+     *  - Calculate the euclidean distance to the closest zombie using bullet’s and zombie’s position.
+     *  - If the distance is smaller than or equal to the collision distance of the zombie, remove the
+     *  zombie and the bullet from the simulation and exit loop.
+     *  - Calculate the next position of the bullet.
+     *  - If the bullet moved out of bound, exit loop.
+     *
+     * @param controller    SimulationController object that the bullet instance exists in
      */
     public void step(SimulationController controller) {
         boolean isHit = false;

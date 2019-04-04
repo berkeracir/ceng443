@@ -52,7 +52,9 @@ public abstract class SimulationObject {
     }
 
     /**
-     *  Method to calculate next position after moving one step
+     * Method to calculate next position after moving one step.
+     *
+     * @return      Returns the calculated position.
      */
     public Position calculateNextPosition() {
         Position nextPosition = new Position(this.getDirection());
@@ -63,7 +65,10 @@ public abstract class SimulationObject {
     }
 
     /**
-     *  Method to calculate direction between the given position and the simulation object's position
+     * Method to calculate direction between the given position and the simulation object's position
+     *
+     * @param position  Position object to calculate the direction to it.
+     * @return          Returns the direction to given position.
      */
     public Position calculateDirection(Position position) {
         Position newPosition = new Position(this.getPosition());
@@ -75,7 +80,11 @@ public abstract class SimulationObject {
     }
 
     /**
-     *  Method to calculate distance between the simulation object and the closest zombie
+     * Method to calculate distance between the simulation object and the closest zombie
+     *
+     * @param controller    SimulationController object for checking the zombies' distances
+     * @return              Returns the distance to the closest zombie, if there is no zombie
+     *                      then returns Integer.MAX_VALUE
      */
     public double calculateClosestZombieDistance(SimulationController controller) {
         double distance = Integer.MAX_VALUE;
@@ -93,7 +102,10 @@ public abstract class SimulationObject {
     }
 
     /**
-     *  Method to get the closest zombie to the simulation object
+     * Method to get the closest zombie to the simulation object
+     *
+     * @param controller    SimulationController object for checking the closest zombie
+     * @return              Returns the closest zombie, if there is no zombie then returns null
      */
     public Zombie getClosestZombie(SimulationController controller) {
         double distance = Integer.MAX_VALUE;
@@ -115,7 +127,11 @@ public abstract class SimulationObject {
     }
 
     /**
-     *  Method to calculate distance between the simulation object and the closest soldier
+     * Method to calculate distance between the simulation object and the closest soldier
+     *
+     * @param controller    SimulationController object for checking the soldiers' distances
+     * @return              Returns the distance to the soldier zombie, if there is no soldier
+     *                      then returns Integer.MAX_VALUE
      */
     public double calculateClosestSoldierDistance(SimulationController controller) {
         double distance = Integer.MAX_VALUE;
@@ -133,7 +149,10 @@ public abstract class SimulationObject {
     }
 
     /**
-     *  Method to get the closest soldier to the simulation object
+     * Method to get the closest soldier to the simulation object
+     *
+     * @param controller    SimulationController object for checking the closest soldier
+     * @return              Returns the closest soldier, if there is no soldier then returns null
      */
     public Soldier getClosestSoldier(SimulationController controller) {
         double distance = Integer.MAX_VALUE;

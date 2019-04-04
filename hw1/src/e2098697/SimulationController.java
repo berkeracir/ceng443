@@ -5,15 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
- *
+ * SimulationController class for controlling SimulationObjects
  */
 public class SimulationController {
     private final double height;
     private final double width;
     private List<SimulationObject> simulationObjects;
     private List<SimulationObject> tmpAddObjects, tmpDelObjects;
-    private int objectCount;
     private int zombieCount;
     private int soldierCount;
 
@@ -23,7 +21,6 @@ public class SimulationController {
         this.simulationObjects = new ArrayList<SimulationObject>();
         this.tmpAddObjects = new ArrayList<SimulationObject>();
         this.tmpDelObjects = new ArrayList<SimulationObject>();
-        int objectCount = 0;
         this.zombieCount = 0;
         this.soldierCount = 0;
     }
@@ -40,7 +37,9 @@ public class SimulationController {
         return simulationObjects;
     }
 
-    //Make sure to fill these methods for grading.
+    /**
+     *  stepAll function for invoking every SimulationObject's step fuctions.
+     */
     public void stepAll() {
         for (SimulationObject obj : this.tmpAddObjects) {
             this.simulationObjects.add(obj);
@@ -89,6 +88,13 @@ public class SimulationController {
         }
     }
 
+    /**
+     * Checks whether the given position is valid in terms  of SimulationController.
+     *
+     * @param position  Position object for validity check
+     * @return          If the given position is inside of boundaries returns true,
+     *                  otherwise returns false
+     */
     public boolean isValidPosition(Position position) {
         double x = position.getX();
         double y = position.getY();
@@ -101,7 +107,14 @@ public class SimulationController {
 
         return false;
     }
-    
+
+    /**
+     * Checks whether SimulationObject is finished in terms of SimulationObjects
+     * that it contains.
+     *
+     * @return      Returns true if there are left any Zombie or Soldier class,
+     *              otherwise returns false
+     */
     public boolean isFinished() {
         if (zombieCount == 0 || soldierCount == 0) {
             return true;

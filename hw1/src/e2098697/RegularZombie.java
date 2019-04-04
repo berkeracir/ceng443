@@ -1,7 +1,7 @@
 package e2098697;
 
 /**
- *  RegularZombie class, extended from Zombie class
+ *  RegularZombie class, extended from Zombie class, it represents regular zombie objects
  */
 public class RegularZombie extends Zombie {
     private int stepCount;
@@ -12,7 +12,11 @@ public class RegularZombie extends Zombie {
     }
 
     /**
-     *  RegularZombie step method
+     * RegularZombie step method, it sets the zombie's direction if it's null,
+     * and calls state related step functions. It checks whether the zombie instance
+     * can kill the closest soldier instance.
+     *
+     * @param controller    SimulationController object that the RegularZombie instance exists in
      */
     public void step(SimulationController controller) {
         if (null == this.getDirection()) {
@@ -29,7 +33,17 @@ public class RegularZombie extends Zombie {
     }
 
     /**
-     *  RegularZombie step method in WANDERING state
+     * RegularZombie step method in WANDERING state, it simulates regular zombie's behaviour in the given
+     * SimulationController:
+     *
+     * – Calculate the next position of the zombie.
+     * – If the position is out of bounds, change direction to random value.
+     * – If the position is not out of bounds, change zombie position to the new position.
+     * – Calculate the euclidean distance to the closest soldier.
+     * – If the distance is shorter than or equal to the detection range of the zombie, change
+     * direction to the soldier and change state to FOLLOWING.
+     *
+     * @param controller    SimulationController object that the RegularZombie instance exists in
      */
     private void wanderingStep(SimulationController controller) {
         Position newPosition = this.calculateNextPosition();
@@ -42,14 +56,26 @@ public class RegularZombie extends Zombie {
         }
 
         double distance = this.calculateClosestSoldierDistance(controller);
+        Soldier soldier = this.getClosestSoldier(controller);
 
-        if (distance <= this.getDetectionRange()) {
+        if (null != soldier && distance <= this.getDetectionRange()) {
+            Position direction = this.calculateDirection(soldier.getPosition());
+            this.setDirection(direction);
             this.setState(ZombieState.FOLLOWING);
         }
     }
 
     /**
-     *  RegularZombie step method in FOLLOWING state
+     * RegularZombie step method in FOLLOWING state, it simulates regular zombie's behaviour in the given
+     * SimulationController:
+     *
+     * – Calculate the next position of the zombie.
+     * – If the position is out of bounds, change direction to random value.
+     * – If the position is not out of bounds, change zombie position to the new position.
+     * – Count the number of step zombie has been in FOLLOWING state.
+     * – If the step count is 4 in FOLLOWING, change state to WANDERING.
+     *
+     * @param controller    SimulationController object that the RegularZombie instance exists in
      */
     private void followingStep(SimulationController controller) {
         Position newPosition = this.calculateNextPosition();
