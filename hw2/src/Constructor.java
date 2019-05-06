@@ -47,19 +47,19 @@ public class Constructor implements Runnable {
         int requiredIngotCount = ingotType.ingotRequirement();
         int interruptCount = 0;
 
-        while (storage.getIngotCount() < requiredIngotCount && interruptCount < requiredIngotCount) {
-            synchronized (storage) {
-                storage.wait(3000/ingotType.ingotRequirement());
+        synchronized (storage) {
+            while (storage.getIngotCount() < requiredIngotCount && interruptCount < requiredIngotCount) {
+                    storage.wait(3000/ingotType.ingotRequirement());
+
+                interruptCount++;
             }
 
-            interruptCount++;
-        }
+            if (storage.getIngotCount() >= requiredIngotCount) {
+                return false;
+            }
 
-        if (storage.getIngotCount() >= requiredIngotCount) {
-            return false;
+            return true;
         }
-
-        return true;
     }
 
     // Signals available transporters that storage spaces have been opened in this constructor.
@@ -73,11 +73,11 @@ public class Constructor implements Runnable {
 
     // Marks the constructor out of simulation so that transporters who are delivering this constructor can quit.
     private void ConstructorStopped() {
+        alive = false;
+
         synchronized (storage) {
             storage.notifyAll();
         }
-
-        alive = false;
     }
 
     public Storage getStorage() {

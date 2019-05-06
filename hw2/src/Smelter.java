@@ -46,9 +46,9 @@ public class Smelter implements Runnable {
     // Wait until a storage space is cleared by a transporter and reserve a storage space for the next ingot before
     // production.
     private void WaitCanProduce() throws InterruptedException {
-        while (storage.isFull()) {
-            synchronized (storage) {
-                storage.wait(100);
+        synchronized (storage) {
+            while (storage.isFull()) {
+                storage.wait();
             }
         }
     }
@@ -58,7 +58,7 @@ public class Smelter implements Runnable {
         synchronized (storage) {
             totalIngot--;
             storage.dropIngot();
-            storage.notifyAll();
+            storage.notify();
         }
     }
 
@@ -66,14 +66,11 @@ public class Smelter implements Runnable {
     // loading remaining ingots in the storage. If there is not available storage for all waiting transporters, extra
     // transporters quit.
     private void SmelterStopped() throws InterruptedException{
-        alive = false;
 
-        while (!storage.isEmpty()) {
-            synchronized (storage) {
-                storage.notifyAll();
-            }
-            Utility.threadSleep(interval);
+        synchronized (storage) {
+            storage.notifyAll();
         }
+        alive = false;
     }
 
     public int getTotalIngot() {
