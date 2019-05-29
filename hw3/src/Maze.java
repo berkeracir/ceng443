@@ -181,7 +181,7 @@ public class Maze extends UnicastRemoteObject implements IMaze {
         int x = position.getX();
         int y = position.getY();
 
-        if (x < 0 || x > this.width || y < 0 || y > this.height) {
+        if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             return false;
         }
         else {
